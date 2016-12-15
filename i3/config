@@ -10,11 +10,11 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 bindsym --release Caps_Lock exec pkill -SIGRTMIN+11 i3blocks
-bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks  
+bindsym --release Num_Lock  exec pkill -SIGRTMIN+11 i3blocks
 
 workspace_auto_back_and_forth yes
 
-#exec-always himawaripy & 
+#exec-always himawaripy &
 
 mouse_warping none
 
@@ -38,16 +38,20 @@ bindsym $mod+Return exec xfce4-terminal
 # kill focused window
 bindsym $mod+Shift+q kill
 
-bindsym $mod+q exec winmenu
+
+
+
 
 exec --no-startup-id nm-applet
-exec xrandr --output HDMI1 --auto --right-of eDP1
-#exec compton
 
-exec "xmodmap -e \"remove mod1 = Alt_R\""
-exec "xmodmap -e \"add mod4 = Alt_R\""
+exec xfce4-terminal cmatrix -b -s -C red
 
-bindsym $mod+Shift+d exec xrandr --auto --output HDMI1 --mode 1920x1080 --right-of eDP1
+
+
+
+
+bindsym $mod+Shift+d exec
+
 
 
 #super put super put super put
@@ -82,6 +86,16 @@ mode "mousecontrol" {
      bindsym Return mode "default"
      bindsym $mod+m mode "default"
 }
+
+mode "(s)hutdown, (r)estart, (l)ogout" {
+     bindsym s exec  shutdown -P now
+     bindsym r exec shutdown -r now
+     bindsym l exec i3-msg exit
+
+     bindsym Return mode "default"
+}
+
+bindsym $mod+p mode "(s)hutdown, (r)estart, (l)ogout"
 
 # change focus
 bindsym $mod+j focus left
@@ -133,7 +147,7 @@ bindsym $mod+space focus mode_toggle
 bindsym $mod+a focus parent
 
 
-bindsym $mod+Shift+s exec shutdown -P now
+
 # focus the child container
 #bindsym $mod+d focus child
 
@@ -149,7 +163,7 @@ bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
 
-exec /usr/local/bin/himawaripy
+
 
 # move focused container to workspace
 bindsym $mod+Shift+1 move container to workspace 1; workspace 1
@@ -186,14 +200,14 @@ workspace 8 output HDMI1
 workspace 9 output HDMI1
 workspace 10 output HDMI1
 
-assign [class="google-chrome"] 1
+assign [class="chrome"] 1
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec i3-msg exit
+
 
 set $incre 5
 set $smallInc 2
@@ -267,10 +281,11 @@ bindsym $mod+Shift+p exec gnome-system-monitor
 bindsym Ctrl+Shift+l exec i3lock -i /home/quinn/Pictures/lockscreen.png -t
 
 set $bg-color            #e61f05
-set $inactive-bg-color   #2f343f
+set $inactive-bg-color   #9c8051
 set $text-color          #f3f4f5
-set $inactive-text-color #676E7D
+set $inactive-text-color #c2c997
 set $urgent-bg-color     #e236d1
+set $alt-bg #916314
 
 # window colors
 #                       border              background         text                 indicator
@@ -283,10 +298,12 @@ hide_edge_borders both
 
 bar {
 	status_command i3blocks
-	
+  position top
+  tray_output eDP1
+  separator_symbol "|"
 colors {
 	background $inactive-bg-color
-	separator #757575
+	separator #c2c997
 	#                  border             background         text
 	focused_workspace  $inactive-bg-color          $bg-color          $text-color
 	inactive_workspace $inactive-bg-color $inactive-bg-color $inactive-text-color
@@ -294,4 +311,4 @@ colors {
 
 }
 }
-bindsym $mod+d exec  rofi -show run -lines 10 -eh 2 -width 80 -padding 50 -bw 0 -bc "$inactive-bg-color" -bg "$inactive-bg-color" -fg "$text-color" -hlbg "$bg-color" -hlfg "$text-color" -font "pango:DejaVu Sans Mono 7"
+bindsym $mod+d exec "rofi  -show combi -switchers combi -combi-modi 'window,run,ssh' -lines 10 -eh 2 -width 80 -padding 50 -bw 0 -bc 'black' -bg '$inactive-bg-color' -bgalt '$alt-bg' -fg '$text-color' -hlbg '$bg-color' -hlfg '$text-color' -fg-active 'black' -font 'pango:DejaVu Sans Mono 7 '"

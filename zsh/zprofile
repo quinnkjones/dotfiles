@@ -1,0 +1,7 @@
+export EDITOR=emacs
+
+export PATH=$PATH:~/Downloads/clion-2016.2/bin
+feh --bg-max /home/quinn/Dropbox/wallpapers/heart.jpg
+
+xmodmap -e  "remove mod1 = Alt_R"
+xmodmap -e "add mod4 = Alt_R"
