@@ -1,4 +1,4 @@
-l#!/bin/bash
+#!/bin/bash
 
 declare -i ID
 ID=`xinput list | grep -Eo 'DLL063E:00 06CB:2934\s*id\=[0-9]{1,2}' | grep -Eo '[0-9]{1,2}' | tail -1`
