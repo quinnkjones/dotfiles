@@ -21,10 +21,6 @@ export LS_COLORS GREP_COLORS
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 ZSH_THEME="gnzh"
 
-function git_prompt_info() {
-  ref=$(git symbolic-ref HEAD 2> /dev/null) || return
-  echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
-}
 
 HISTIGNORE="pwd:ls:ll:la:cd"
 HISTCONTROL=ignoredups
@@ -89,13 +85,25 @@ COMPLETION_WAITING_DOTS="true"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
+
+
+EXTENDED_GLOB="true"
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git django python ssh-agent powerline)
+plugins=(git django python ssh-agent powerline chucknorris emoji thefuck )
+
+
 
 source $ZSH/oh-my-zsh.sh
+
+function git_prompt_info() {
+    ref=$(git symbolic-ref HEAD 2> /dev/null) || return
+    echo "$ZSH_THEME_GIT_PROMPT_PREFIX${ref#refs/heads/}$ZSH_THEME_GIT_PROMPT_SUFFIX"
+}
+
 
 # User configuration
 
@@ -131,15 +139,26 @@ source $ZSH/oh-my-zsh.sh
 alias c='pygmentize -O style=monokai -f console256 -g'
 
 
-alias dual='xrandr --output HDMI1 --auto --right-of eDP1'
-alias laptop='xrandr --auto --output HDMI1 --off'
+alias dual='xrandr --output HDMI1 --auto --right-of eDP1 && feh --bg-max /home/quinn/Dropbox/wallpapers/heart.jpg'
+alias laptop='xrandr --auto --output HDMI1 --off  && feh --bg-max /home/quinn/Dropbox/wallpapers/heart.jpg'
 alias netreboot='sudo service network-manager restart'
 
 alias ls='ls --color=auto'
 
 alias ll='ls -alF'
 alias la='ls -A'
-
+alias ld='tree -d -L 1'
+alias ld2='tree -d -L 2'
 alias octave='octave -W'
 alias open='xdg-open'
+alias mkdirs='mkdir -p'
+
+alias wttr='curl wttr.in/Morgantown'
+
+export EDITOR='/usr/bin/emacsclient -t --alternate-editor="nano"'
+alias e='/usr/bin/emacsclient -t --alternate-editor /usr/bin/emacs -nw'
+function emacs() { /usr/bin/emacsclient "$@" -c  --alternate-editor /usr/bin/emacs & disown && exit }
+function esp() { /usr/bin/emacsclient  "$@" -c  --alternate-editor /usr/bin/emacs & disown}
 neofetch
+chuck
+
